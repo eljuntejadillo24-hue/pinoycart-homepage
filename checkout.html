@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - PinoyCart</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body class="checkout-page">
+<header><div class="top checkout-top"><a class="logo" href="index.html">🛍 PinoyCart</a><span>Secure Checkout</span></div></header>
+<main class="checkout-wrap">
+  <a class="back-link" href="index.html">← Continue shopping</a>
+  <h1>Checkout</h1>
+  <div class="checkout-layout">
+    <form class="checkout-form" id="orderForm">
+      <section class="form-section">
+        <h2>1. Customer Information</h2>
+        <label for="fullname">Full name *</label>
+        <input id="fullname" name="fullname" autocomplete="name" placeholder="Enter your full name" required>
+        <label for="phone">Phone number *</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XXXXXXXXX" pattern="^(09\d{9}|\+639\d{9})$" title="Enter a valid Philippine mobile number, e.g. 09171234567" required>
+      </section>
+
+      <section class="form-section">
+        <h2>2. Delivery Address</h2>
+        <p class="help-text">Choose your province or NCR, then select your city/municipality and barangay.</p>
+        <div class="address-picker-field">
+          <label for="provincePicker">Province / NCR *</label>
+          <button class="address-picker-trigger" id="provincePicker" type="button" disabled><span class="picker-pin">⌖</span><span class="picker-value">Loading provinces...</span><span class="picker-chevron">⌄</span></button>
+          <select id="province" class="native-address-select" aria-hidden="true" tabindex="-1"><option value="">Loading provinces...</option></select>
+        </div>
+        <div class="address-picker-field">
+          <label for="cityPicker">City / Municipality *</label>
+          <button class="address-picker-trigger" id="cityPicker" type="button" disabled><span class="picker-pin">⌖</span><span class="picker-value">Choose province first</span><span class="picker-chevron">⌄</span></button>
+          <select id="city" class="native-address-select" aria-hidden="true" tabindex="-1"><option value="">Choose province first</option></select>
+        </div>
+        <div class="address-picker-field">
+          <label for="barangayPicker">Barangay *</label>
+          <button class="address-picker-trigger" id="barangayPicker" type="button" disabled><span class="picker-pin">⌖</span><span class="picker-value">Choose city first</span><span class="picker-chevron">⌄</span></button>
+          <select id="barangay" class="native-address-select" aria-hidden="true" tabindex="-1"><option value="">Choose city first</option></select>
+        </div>
+        <label for="street">House number, street, building / subdivision *</label>
+        <textarea id="street" name="street" rows="3" autocomplete="street-address" placeholder="Enter house number, street, building or subdivision" required></textarea>
+        <p class="api-note" id="addressStatus">Province, city/municipality, and barangay options use the Philippine PSGC public dataset. Internet connection is required.</p>
+      </section>
+
+      <section class="form-section">
+        <h2>3. Payment Method</h2>
+        <label class="payment-option"><input type="radio" name="payment" value="Cash on Delivery" checked> Cash on Delivery (COD)</label>
+        <p class="help-text">Cash on Delivery. No online payment is collected at checkout.</p>
+      </section>
+      <button class="place-order" type="submit">PLACE ORDER</button>
+    </form>
+
+    <aside class="order-summary">
+      <h2>Your Order</h2>
+      <div id="summaryItems"></div>
+      <div class="summary-line"><span>Total items</span><strong id="totalItems">0</strong></div>
+      <div class="summary-line"><span>Subtotal</span><strong id="summarySubtotal">₱0</strong></div>
+      <div class="summary-line"><span>Delivery fee</span><strong id="deliveryFee">To be confirmed</strong></div>
+      <p class="shipping-promo" id="shippingPromo">Add 1 more item to unlock FREE SHIPPING!</p>
+      <div class="summary-total"><span>Order total</span><strong id="orderTotal">₱0</strong></div>
+    </aside>
+  </div>
+</main>
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-mark">✓</div>
+    <h2>Order details submitted!</h2>
+    <p>Your order was received by the PinoyCart server. The store team can process it after the backend database is configured.</p>
+    <button onclick="finishDemo()">Back to PinoyCart</button>
+  </div>
+</div>
+<script src="products-data.js"></script>
+<div class="address-modal" id="addressModal" aria-hidden="true">
+  <div class="address-modal-backdrop" data-close-address></div>
+  <section class="address-modal-panel" role="dialog" aria-modal="true" aria-labelledby="addressModalTitle">
+    <div class="address-modal-head"><div><span class="address-modal-kicker">DELIVERY LOCATION</span><h2 id="addressModalTitle">Select location</h2></div><button type="button" class="address-modal-close" id="closeAddressModal" aria-label="Close">×</button></div>
+    <div class="address-option-list" id="addressOptionList"></div>
+    <p class="address-modal-foot">Choose the correct delivery location for your order.</p>
+  </section>
+</div>
+<script src="checkout.js"></script>
+</body>
+</html>

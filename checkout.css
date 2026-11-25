@@ -1,0 +1,74 @@
+body.checkout-page{background:#f5f5f5}
+.checkout-top{justify-content:space-between}
+.checkout-top span{font-size:14px}
+.checkout-wrap{max-width:1100px;margin:25px auto;padding:0 16px 40px}
+.checkout-wrap h1{font-size:27px;margin:16px 0;color:#333}
+.back-link{color:#ee4d2d;text-decoration:none;font-size:14px}
+.checkout-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:18px;align-items:start}
+.checkout-form,.order-summary{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 5px #0000000d}
+.form-section{border-bottom:1px solid #eee;padding-bottom:18px;margin-bottom:18px}
+.form-section h2,.order-summary h2{font-size:18px;margin:0 0 16px;color:#ee4d2d}
+.checkout-form label{display:block;font-size:14px;font-weight:600;margin:13px 0 7px}
+.checkout-form input:not([type=radio]),.checkout-form select,.checkout-form textarea{width:100%;padding:12px;border:1px solid #d8d8d8;border-radius:5px;font:inherit;background:white}
+.checkout-form input:focus,.checkout-form select:focus,.checkout-form textarea:focus{outline:2px solid #ffb39f;border-color:#ee4d2d}
+.help-text,.api-note{font-size:12px;line-height:1.5;color:#777;margin:0 0 12px}
+.api-note{margin-top:10px}
+.payment-option{display:flex!important;align-items:center;gap:9px;font-weight:normal!important}
+.place-order,.success-box button{width:100%;padding:14px;border:0;border-radius:5px;background:#ee4d2d;color:white;font-size:15px;font-weight:bold;cursor:pointer}
+.summary-product{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #eee;font-size:13px}
+.summary-product img{width:55px;height:55px;object-fit:cover;border-radius:5px}
+.summary-product div{flex:1}
+.summary-product strong{display:block;color:#ee4d2d;margin-top:5px}
+.summary-line,.summary-total{display:flex;justify-content:space-between;gap:10px;padding:12px 0;font-size:14px;border-bottom:1px solid #eee}
+.summary-total{font-size:17px;font-weight:bold;border:0;color:#ee4d2d}
+.success-overlay{display:none;position:fixed;inset:0;background:#0008;z-index:50;align-items:center;justify-content:center;padding:18px}
+.success-overlay.show{display:flex}
+.success-box{background:white;border-radius:10px;padding:25px;max-width:380px;text-align:center}
+.success-mark{width:52px;height:52px;margin:auto;border-radius:50%;background:#e5f7e9;color:#16833b;font-size:32px;line-height:52px}
+.success-box p{color:#666;line-height:1.5;font-size:14px}
+@media(max-width:760px){.checkout-layout{grid-template-columns:1fr}.order-summary{order:-1}.checkout-wrap{margin:16px auto}.checkout-form,.order-summary{padding:16px}}
+
+/* Checkout quantity controls and free-shipping offer */
+.summary-product{align-items:center}
+.summary-product .summary-product-info{min-width:0}
+.summary-qty{display:flex;align-items:center;gap:9px;margin-top:9px}
+.summary-qty button{width:29px;height:29px;border:1px solid #ee4d2d;background:#fff;color:#ee4d2d;border-radius:5px;font-size:19px;font-weight:bold;line-height:1;cursor:pointer}
+.summary-qty button:hover{background:#fff0eb}
+.summary-qty span{font-size:13px;font-weight:bold;min-width:14px;text-align:center}
+.shipping-promo{margin:9px 0 2px;padding:10px 12px;border-radius:6px;background:#fff3ed;color:#ee4d2d;font-size:12px;font-weight:bold}
+.shipping-promo.unlocked{background:#eaf8ee;color:#16833b}
+#deliveryFee.free-shipping{color:#16833b}
+@media(max-width:420px){.summary-product{gap:8px}.summary-product img{width:50px;height:50px}}
+
+/* Modern searchable Philippine address picker */
+.address-picker-field{position:relative;margin-top:13px}
+.address-picker-field>label{margin:0 0 7px}
+.native-address-select{display:none!important}
+.address-picker-trigger{width:100%;min-height:54px;display:flex;align-items:center;gap:11px;padding:0 14px;border:1px solid #e4e4e7;border-radius:12px;background:#fff;color:#222;text-align:left;font:inherit;cursor:pointer;transition:border-color .18s,box-shadow .18s}
+.address-picker-trigger:not(:disabled):hover,.address-picker-trigger:not(:disabled):focus{outline:none;border-color:#ee4d2d;box-shadow:0 0 0 3px #ee4d2d16}
+.address-picker-trigger:disabled{background:#f7f7f7;color:#999;cursor:not-allowed}
+.picker-pin{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#fff0eb;color:#ee4d2d;font-size:22px;flex:0 0 auto}
+.picker-value{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#888;font-size:14px}
+.address-picker-trigger.has-value .picker-value{color:#242424;font-weight:600}
+.picker-chevron{color:#ee4d2d;font-size:22px;line-height:1}
+body.address-modal-open{overflow:hidden}
+.address-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:18px}
+.address-modal.show{display:flex}
+.address-modal-backdrop{position:absolute;inset:0;background:rgba(20,20,20,.55);backdrop-filter:blur(3px)}
+.address-modal-panel{position:relative;width:min(100%,480px);max-height:min(78dvh,720px);display:flex;flex-direction:column;overflow:hidden;border-radius:22px;background:#fff;box-shadow:0 18px 60px #0003;animation:addressPop .18s ease-out}
+@keyframes addressPop{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.address-modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 15px;border-bottom:1px solid #f0f0f0}
+.address-modal-kicker{font-size:10px;letter-spacing:1.2px;font-weight:800;color:#ee4d2d}
+.address-modal-head h2{font-size:19px;color:#222;margin:5px 0 0}
+.address-modal-close{width:36px;height:36px;border:0;border-radius:50%;background:#f5f5f5;color:#555;font-size:25px;cursor:pointer}
+.address-search{display:flex!important;align-items:center;gap:10px;margin:15px 16px 10px!important;padding:0 13px!important;border:1px solid #e8e8e8;border-radius:12px;background:#f8f8f8;color:#ee4d2d;font-size:23px}
+.address-search input{width:100%;height:46px;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important;font-size:14px!important;padding:0!important}
+.address-option-list{overflow-y:auto;overscroll-behavior:contain;padding:0 10px 8px}
+.address-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 12px;border:0;border-bottom:1px solid #f1f1f1;background:#fff;color:#333;text-align:left;font-size:15px;cursor:pointer}
+.address-option:active,.address-option:hover{background:#fff7f3}
+.address-option.selected{color:#e84b2b;font-weight:700;background:#fff5f0}
+.address-option-check{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;color:#fff;background:#ee4d2d;font-size:14px;flex:0 0 auto}
+.address-option:not(.selected) .address-option-check{background:transparent}
+.address-empty{padding:25px 12px;text-align:center;color:#888;font-size:14px}
+.address-modal-foot{margin:0;padding:12px 18px 16px;border-top:1px solid #f1f1f1;color:#888;font-size:11px;text-align:center}
+@media(max-width:520px){.address-modal{padding:0;align-items:flex-end}.address-modal-panel{width:100%;max-height:84dvh;border-radius:22px 22px 0 0}.address-modal-head{padding:18px 18px 13px}.address-option{padding:16px 12px;font-size:15px}}

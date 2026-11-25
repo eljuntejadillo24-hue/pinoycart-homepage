@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | PinoyCart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="product-page">
+<header>
+  <div class="top">
+    <a class="logo" href="index.html">🛍 PinoyCart</a>
+    <div class="search">
+      <input id="search" placeholder="Search products..." oninput="renderProducts()">
+      <button onclick="renderProducts()" aria-label="Search">🔍</button>
+    </div>
+    <button class="cart-icon" onclick="openCart()">🛒 <span id="count">0</span></button>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Welcome to PinoyCart!</h1>
+    <p>Discover amazing products at affordable prices.</p>
+    <strong class="hero-discount">UP TO 50% OFF</strong>
+    <div class="hero-countdown" aria-label="Flash sale countdown">
+      <span class="countdown-label">FLASH SALE ENDS IN</span>
+      <div class="countdown-clock">
+        <span class="countdown-unit"><b id="saleHours">23</b><small>HRS</small></span>
+        <i>:</i>
+        <span class="countdown-unit"><b id="saleMinutes">06</b><small>MIN</small></span>
+        <i>:</i>
+        <span class="countdown-unit"><b id="saleSeconds">07</b><small>SEC</small></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-decor" aria-hidden="true">
+    <span class="hero-spark spark-one">✦</span>
+    <span class="hero-spark spark-two">✧</span>
+    <span class="hero-gift gift-one">🎁</span>
+    <span class="hero-gift gift-two">🎁</span>
+    <span class="hero-gift gift-three">🎁</span>
+    <span class="hero-bag bag-one">🛍️</span>
+    <span class="hero-bag bag-two">🛍️</span>
+    <span class="hero-bag bag-three">🛍️</span>
+    <span class="hero-bag bag-four">🛍️</span>
+    <span class="hero-cart">🛒</span>
+    <span class="hero-coin coin-one">₱</span>
+    <span class="hero-coin coin-two">₱</span>
+  </div>
+</section>
+<nav class="categories" id="categories" aria-label="Product categories">
+  <button class="active" onclick="filterCategory('All',this)">All Products</button>
+  <button onclick="filterCategory('Electronics',this)">Electronics</button>
+  <button onclick="filterCategory('Fashion',this)">Fashion</button>
+  <button onclick="filterCategory('Home',this)">Home &amp; Living</button>
+  <button onclick="filterCategory('Beauty',this)">Beauty</button>
+  <button onclick="filterCategory('Accessories',this)">Accessories</button>
+</nav>
+<div class="heading">
+  <h2>🔥 Flash Deals &amp; Products</h2>
+  <span id="productCount"></span>
+</div>
+<main class="products" id="products"></main>
+<footer>
+  <h3>🛍 PinoyCart</h3>
+  <p>Your favorite online shopping destination.</p>
+  <small>© 2026 PinoyCart. All rights reserved.</small>
+  
+</footer>
+
+<div class="overlay" id="overlay" onclick="outsideClose(event)">
+  <section class="cart-panel" role="dialog" aria-modal="true" aria-label="Shopping cart">
+    <div class="cart-head">
+      <h2>🛒 My Shopping Cart</h2>
+      <button class="close" onclick="closeCart()" aria-label="Close cart">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-bottom">
+      <div class="total"><span>Subtotal</span><span id="subtotal">₱0</span></div>
+      <p class="delivery-note">Delivery fee calculated at checkout.</p>
+      <button class="checkout" id="cartActionButton" onclick="cartBottomAction()">PROCEED TO CHECKOUT</button>
+    </div>
+  </section>
+</div>
+
+<div class="product-modal" id="productModal" onclick="closeProductOutside(event)">
+  <section class="product-detail-panel" role="dialog" aria-modal="true" aria-label="Product details">
+    <button class="detail-close" onclick="closeProductDetails()" aria-label="Back to store">←</button>
+    <div class="detail-gallery" id="detailGallery">
+      <img id="detailImage" class="detail-image" src="" alt="Product">
+      <div class="gallery-color-label" id="galleryColorLabel" hidden></div>
+      <div class="gallery-dots" id="galleryDots" aria-label="Product color photos"></div>
+      <p class="gallery-swipe-hint" id="gallerySwipeHint" hidden>← Swipe photos to choose a color →</p>
+    </div>
+    <div class="detail-content">
+      <span class="detail-tag">PRODUCT DETAILS</span>
+      <div class="detail-title-line"><span class="mall-badge"><span class="mall-check">✓</span> MALL</span><h2 id="detailName"></h2></div>
+      <div class="detail-rating" id="detailRating"></div>
+      <div class="detail-price-row"><strong id="detailPrice"></strong><del id="detailOldPrice"></del><span id="detailDiscount"></span></div>
+      <h3>Description</h3>
+      <p id="detailDescription"></p>
+
+
+
+      <div id="fashionColorPicker" class="fashion-size-picker" hidden>
+        <label for="detailColor">Choose color *</label>
+        <select id="detailColor" class="variant-native-select"><option value="">Select color</option></select><div id="detailColorChoices" class="color-swatch-grid" role="group" aria-label="Choose color"></div>
+      </div>
+      <div id="fashionSizePicker" class="fashion-size-picker" hidden>
+        <label for="detailSize">Choose size *</label>
+        <select id="detailSize" class="variant-native-select">
+          <option value="">Select size</option>
+        </select>
+        <div id="detailSizeChoices" class="size-choice-grid" role="group" aria-label="Choose size"></div>
+        <p id="detailSizeStock" class="size-stock-note">Choose a size to see available stock.</p>
+      </div>
+      <p class="variant-required-note" id="variantRequiredNote" hidden>Choose your color and size before adding this T-shirt to your cart.</p>
+      <h3>Customer Rating</h3>
+      <div class="rating-breakdown">
+        <strong id="detailRatingLarge"></strong>
+        <span id="detailReviewCount"></span>
+      </div>
+      <section class="customer-feedback"><h3>Customer feedback</h3>
+        <div id="customerFeedbackList" class="customer-feedback-list"><p class="feedback-empty">No customer reviews yet.</p></div>
+</section>
+
+      <!-- Shopee-inspired official store profile, shown below customer feedback -->
+      <section class="seller-profile" aria-label="PinoyCart store profile">
+        <div class="seller-profile-main">
+          <div class="seller-avatar" aria-hidden="true"><span class="seller-avatar-bag">🛍️</span><strong>PinoyCart</strong><small>OFFICIAL STORE</small></div>
+          <div class="seller-info">
+            <div class="seller-name-row"><strong>PinoyCart Official Store</strong><span class="seller-verified" title="Official store">✓</span></div>
+            <span class="seller-active"><i></i> Welcome to our store</span>
+            <div class="seller-stats">
+              <span><b>★ 4.8/5</b><small>Store rating</small></span>
+              <span><b>Quality</b><small>Selected products</small></span>
+              <span><b>Customer</b><small>Support</small></span>
+            </div>
+          </div>
+          <a class="seller-visit" href="index.html#products"><span aria-hidden="true">▣</span> Visit Store <b>›</b></a>
+        </div>
+        <div class="seller-benefits">
+          <span><b>✓</b> Secure Shopping</span>
+          <span><b>↗</b> Order Updates</span>
+          <span><b>↻</b> Easy Assistance</span>
+          <span><b>♡</b> Customer Care</span>
+        </div>
+      </section>
+      <div class="detail-actions">
+        <button class="detail-add" id="detailAddButton">🛒 ADD TO CART</button>
+        <button class="detail-buy" id="detailBuyButton">BUY NOW</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Minimal add-to-cart success indicator: check icon only -->
+<div class="add-cart-success" id="addCartSuccess" aria-hidden="true">
+  <div class="add-cart-success-icon" role="status" aria-label="Added to cart successfully">✓</div>
+</div>
+
+<script>
+(function(){
+  const duration = (23 * 3600 + 6 * 60 + 7) * 1000;
+  const storageKey = "pinoycart_flash_sale_deadline_v1";
+  let deadline = Number(localStorage.getItem(storageKey));
+  if (!deadline || !Number.isFinite(deadline)) {
+    deadline = Date.now() + duration;
+    localStorage.setItem(storageKey, String(deadline));
+  }
+  const fields = {
+    hours: document.getElementById("saleHours"),
+    minutes: document.getElementById("saleMinutes"),
+    seconds: document.getElementById("saleSeconds")
+  };
+  function tick(){
+    const now = Date.now();
+    // Repeat the full flash-sale countdown continuously. If the page was closed
+    // when a cycle ended, advance by whole cycles until the next future deadline.
+    if (deadline <= now) {
+      const elapsedCycles = Math.floor((now - deadline) / duration) + 1;
+      deadline += elapsedCycles * duration;
+      localStorage.setItem(storageKey, String(deadline));
+    }
+    const left = deadline - now;
+    const total = Math.ceil(left / 1000);
+    const values = {
+      hours: String(Math.floor(total / 3600)).padStart(2,"0"),
+      minutes: String(Math.floor((total % 3600) / 60)).padStart(2,"0"),
+      seconds: String(total % 60).padStart(2,"0")
+    };
+    Object.keys(fields).forEach(function(key){
+      if (fields[key] && fields[key].textContent !== values[key]) {
+        fields[key].textContent = values[key];
+        fields[key].classList.remove("tick");
+        void fields[key].offsetWidth;
+        fields[key].classList.add("tick");
+      }
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+<script src="script.js"></script>
+</body>
+</html>
