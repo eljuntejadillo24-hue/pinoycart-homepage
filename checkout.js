@@ -284,7 +284,7 @@ document.getElementById("orderForm").addEventListener("submit", async event => {
   submitButton.disabled = true;
   submitButton.textContent = "SUBMITTING ORDER...";
   try {
-    const response = await fetch("/api/orders", {
+    const response = await fetch("https://pinoycart-website1-backend.onrender.com/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order)
@@ -317,7 +317,7 @@ function finishDemo() { window.location.href = "index.html"; }
 
 async function initializeCheckoutCatalog() {
   try {
-    const response = await fetch('/api/products/pancake', { cache: 'no-store' });
+    const response = await fetch('https://pinoycart-website1-backend.onrender.com/api/products/pancake', { cache: 'no-store' });
     const result = await response.json();
     if (response.ok && result.success && Array.isArray(result.products)) {
       result.products.forEach(item => {

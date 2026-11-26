@@ -1,3 +1,4 @@
+const PINOYCART_API_BASE = 'https://pinoycart-website1-backend.onrender.com';
 const DEFAULT_PRODUCTS = [
   ["Wireless Bluetooth Earbuds","Electronics",599,899,"photo-1590658268037-6bf12165a8df"],
   ["Smart Watch","Electronics",899,1299,"photo-1523275335684-37898b6baf30"],
@@ -46,7 +47,7 @@ let products = loadProductCatalog();
 const PANCAKE_DYNAMIC_PRODUCTS = new Set();
 async function loadPancakeStorefrontProducts() {
   try {
-    const response = await fetch('/api/products/pancake', { cache: 'no-store' });
+    const response = await fetch(`${PINOYCART_API_BASE}/api/products/pancake`, { cache: 'no-store' });
     const result = await response.json();
     if (!response.ok || !result.success || !Array.isArray(result.products)) throw new Error('Catalog fetch failed');
     // Remove previously appended live Pancake products, then append the latest catalog.
